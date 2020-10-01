@@ -1,0 +1,174 @@
+<tr *ngFor="let student of students; let i = index">
+  <th scope="row">{{ student.roll }}</th>
+  <td>{{ student.name }}</td>
+  <td>{{ student.city }}</td>
+  <td>{{ student.college }}</td>
+  <td>{{ student.qualification }}</td>
+  <td>
+    <input type="checkbox" [(ngModel)]="student.isCompleted" />
+  </td>
+  <td>
+    <i
+      class="fas fa-pen text-warning mr-4"
+      (click)="getCurrent(i)"
+      style="cursor: pointer"
+      data-toggle="modal"
+      data-target="#exampleModal"
+    ></i>
+    <i
+      class="fas fa-trash text-danger"
+      (click)="delete(i)"
+      style="cursor: pointer"
+    ></i>
+  </td>
+</tr>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Update Student Details
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form" (ngSubmit)="submit(form)" class="mt-3">
+          <!-- Student Name -->
+          <div class="form-group">
+            <input
+              formControlName="sName"
+              type="text"
+              name="sName"
+              id="sName"
+              class="form-control"
+              placeholder="Student Name"
+            />
+            <div *ngIf="sName.touched && sName.invalid">
+              <div *ngIf="sName.errors.required" class="text-danger">
+                Please enter the Student Name.
+              </div>
+              <div
+                *ngIf="sName.errors.minlength || sName.errors.maxlength"
+                class="text-danger"
+              >
+                Accepts Alphabets, space & Min 5 to Max 30 Char
+              </div>
+              <div *ngIf="sName.errors.pattern" class="text-danger">
+                Accepts Alphabets, space & Min 5 to Max 30 Char
+              </div>
+            </div>
+          </div>
+
+          <!-- Student City -->
+          <div class="form-group">
+            <input
+              formControlName="sCity"
+              type="text"
+              name="sCity"
+              id="sCity"
+              class="form-control"
+              placeholder="Student's City"
+            />
+            <div *ngIf="sCity.touched && sCity.invalid">
+              <div *ngIf="sCity.errors.required" class="text-danger">
+                Please enter the City Name.
+              </div>
+              <div *ngIf="sCity.errors.pattern" class="text-danger">
+                Invalid City Name
+              </div>
+            </div>
+          </div>
+
+          <!-- Student College -->
+          <div class="form-group">
+            <input
+              formControlName="sCollege"
+              type="text"
+              name="sCollege"
+              id="sCollege"
+              class="form-control"
+              placeholder="College"
+            />
+            <div *ngIf="sCollege.touched && sCollege.invalid">
+              <div *ngIf="sCollege.errors.required" class="text-danger">
+                Please enter the College.
+              </div>
+              <div
+                *ngIf="sCollege.errors.minlength || sCollege.errors.maxlength"
+                class="text-danger"
+              >
+                Accepts Alphabets, space & Min 5 to Max 50 Char
+              </div>
+              <div *ngIf="sCollege.errors.pattern" class="text-danger">
+                Invalid College.
+              </div>
+            </div>
+          </div>
+
+          <!-- Qualification -->
+          <div class="form-group">
+            <input
+              formControlName="sQualification"
+              type="text"
+              name="sQualification"
+              id="sQualification"
+              class="form-control"
+              placeholder="Student Qualification"
+            />
+            <div *ngIf="sQualification.touched && sQualification.invalid">
+              <div *ngIf="sQualification.errors.required" class="text-danger">
+                Please enter the Qualification.
+              </div>
+              <div
+                *ngIf="
+                  sQualification.errors.minlength ||
+                  sQualification.errors.maxlength
+                "
+                class="text-danger"
+              >
+                Accepts Alphabets, space & Min 2 to Max 30 Char
+              </div>
+              <div *ngIf="sQualification.errors.pattern" class="text-danger">
+                Accepts Alphabets, space & Min 2 to Max 30 Char
+              </div>
+            </div>
+          </div>
+
+          <!-- Json Data -->
+          <!-- <p>
+                      {{ form.value | json }}
+                  </p> -->
+
+          <button
+            type="submit"
+            class="btn btn-warning text-white mr-3"
+            [disabled]="form.invalid"
+          >
+            Update Student
+          </button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
