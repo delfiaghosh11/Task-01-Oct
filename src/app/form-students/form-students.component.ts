@@ -11,6 +11,7 @@ export class FormStudentsComponent implements OnInit {
   @Input() students: any;
   @Output() parentFun: EventEmitter<any> = new EventEmitter();
 
+  studentArray = [];
   lastRoll: number;
   newStudent: Object;
 
@@ -86,5 +87,15 @@ export class FormStudentsComponent implements OnInit {
   submit(form) {
     console.log('Successfully Submitted: ', form);
     this.createNew();
+  }
+
+  deleteSelected() {
+    this.studentArray = this.students;
+    this.studentArray = this.studentArray.filter(
+      (item) => item.isCompleted === false
+    );
+    console.log(this.studentArray);
+    this.studentsService.setStudents(this.studentArray);
+    this.parentFun.emit();
   }
 }
