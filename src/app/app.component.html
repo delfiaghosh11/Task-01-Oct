@@ -1,18 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
-  <div class="container">
-    <a class="navbar-brand text-success" href="#">Students' App</a>
-
-    <ul class="nav nav-pills">
-      <li class="nav-item">
-        <a
-          class="nav-link text-white"
-          routerLinkActive="active"
-          routerLink="/students"
-          >Students' List</a
-        >
-      </li>
-    </ul>
-  </div>
-</nav>
-
-<router-outlet></router-outlet>
+<div class="container-fluid my-5 w-75">
+  <app-list-students
+    [students]="studentsData"
+    (parentFun)="updateData()"
+  ></app-list-students>
+  <app-form-students (parentFun)="updateData()"></app-form-students>
+</div>

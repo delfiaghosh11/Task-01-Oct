@@ -1,3 +1,4 @@
+import { StudentsService } from './services/students.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,7 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor() {}
+  studentsData = [];
 
-  ngOnInit() {}
+  constructor(private studentsService: StudentsService) {}
+
+  ngOnInit() {
+    this.studentsService.getJSON().subscribe((data) => {
+      this.studentsData = data;
+    });
+  }
+
+  updateData() {
+    this.studentsData = this.studentsService.getStudents();
+  }
 }

@@ -1,5 +1,5 @@
-import { StudentsService } from './../students.service';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { StudentsService } from './../services/students.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -8,9 +8,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./form-students.component.css'],
 })
 export class FormStudentsComponent implements OnInit {
+  @Input() students: any;
   @Output() parentFun: EventEmitter<any> = new EventEmitter();
 
-  datas = [];
   lastRoll: number;
   newStudent: Object;
 
@@ -60,10 +60,10 @@ export class FormStudentsComponent implements OnInit {
   }
 
   createNew() {
-    this.datas = this.studentsService.getStudents();
+    this.students = this.studentsService.getStudents();
 
-    if (this.datas.length > 0) {
-      this.lastRoll = this.datas[this.datas.length - 1].roll;
+    if (this.students.length > 0) {
+      this.lastRoll = this.students[this.students.length - 1].roll;
     } else {
       this.lastRoll = 0;
     }

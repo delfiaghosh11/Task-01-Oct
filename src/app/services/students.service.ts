@@ -25,8 +25,8 @@ export class StudentsService {
     return this.students;
   }
 
-  setStudents(array) {
-    this.students = array;
+  setStudents(sArray) {
+    this.students = sArray;
   }
 
   updateStudent = (roll, name, city, college, qualification) => {
