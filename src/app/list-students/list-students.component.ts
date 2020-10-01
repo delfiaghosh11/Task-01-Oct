@@ -13,50 +13,38 @@ export class ListStudentsComponent implements OnInit {
 
   current: Object;
   sRoll: number;
+  editMode = [];
 
   constructor(private studentsService: StudentsService) {}
 
-  ngOnInit() {}
-
-  form = new FormGroup({
-    sName: new FormControl('', [
-      Validators.required,
-      Validators.minLength(5),
-      Validators.maxLength(30),
-      Validators.pattern("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"),
-    ]),
-    sCity: new FormControl('', [
-      Validators.required,
-      Validators.pattern("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"),
-    ]),
-    sCollege: new FormControl('', [
-      Validators.required,
-      Validators.minLength(5),
-      Validators.maxLength(50),
-      Validators.pattern("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"),
-    ]),
-    sQualification: new FormControl('', [
-      Validators.required,
-      Validators.minLength(2),
-      Validators.maxLength(30),
-      Validators.pattern("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"),
-    ]),
-  });
-
-  get sName() {
-    return this.form.get('sName');
+  ngOnInit() {
+    this.editMode.fill(false, 0, this.studentsService.getStudents().length - 1);
   }
 
-  get sCity() {
-    return this.form.get('sCity');
+  editRow(student, index) {
+    this.editMode[index] = true;
   }
 
-  get sCollege() {
-    return this.form.get('sCollege');
-  }
-
-  get sQualification() {
-    return this.form.get('sQualification');
+  saveRow(student, index) {
+    if (
+      student.name === '' ||
+      student.city === '' ||
+      student.college === '' ||
+      student.qualification === ''
+    ) {
+      this.editMode[index] = true;
+    } else {
+      this.editMode[index] = false;
+      this.studentsService.updateStudent(
+        student.roll,
+        student.name,
+        student.city,
+        student.college,
+        student.qualification
+      );
+      this.parentFun.emit();
+      console.log(this.studentsService.getStudents());
+    }
   }
 
   getCurrent(index) {
@@ -73,21 +61,21 @@ export class ListStudentsComponent implements OnInit {
     this.parentFun.emit();
   }
 
-  update() {
-    this.studentsService.updateStudent(
-      this.sRoll,
-      this.sName.value,
-      this.sCity.value,
-      this.sCollege.value,
-      this.sQualification.value
-    );
-    this.form.reset();
-    this.parentFun.emit();
-    console.log(this.studentsService.getStudents());
-  }
+  // update() {
+  //   this.studentsService.updateStudent(
+  //     this.sRoll,
+  //     this.sName.value,
+  //     this.sCity.value,
+  //     this.sCollege.value,
+  //     this.sQualification.value
+  //   );
+  //   this.form.reset();
+  //   this.parentFun.emit();
+  //   console.log(this.studentsService.getStudents());
+  // }
 
-  submit(form) {
-    console.log('Successfully Submitted: ', form);
-    this.update();
-  }
+  // submit(form) {
+  //   console.log('Successfully Submitted: ', form);
+  //   this.update();
+  // }
 }

@@ -1,7 +1,7 @@
 <div class="container-fluid my-5 w-75">
+  <app-form-students (parentFun)="updateData()"></app-form-students>
   <app-list-students
     [students]="studentsData"
     (parentFun)="updateData()"
   ></app-list-students>
-  <app-form-students (parentFun)="updateData()"></app-form-students>
 </div>
