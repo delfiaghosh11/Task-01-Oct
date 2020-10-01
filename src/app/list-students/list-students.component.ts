@@ -1,5 +1,4 @@
 import { StudentsService } from './../services/students.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
@@ -14,14 +13,19 @@ export class ListStudentsComponent implements OnInit {
   current: Object;
   sRoll: number;
   editMode = [];
+  studentArray = [];
 
   constructor(private studentsService: StudentsService) {}
 
   ngOnInit() {
-    this.editMode.fill(false, 0, this.studentsService.getStudents().length - 1);
+    this.studentsService.getJSON().subscribe((data) => {
+      this.studentArray = data;
+      this.studentArray.map((item) => this.editMode.push(false));
+      // console.log(this.editMode);
+    });
   }
 
-  editRow(student, index) {
+  editRow(index) {
     this.editMode[index] = true;
   }
 
@@ -47,35 +51,9 @@ export class ListStudentsComponent implements OnInit {
     }
   }
 
-  getCurrent(index) {
-    this.students = this.studentsService.getStudents();
-    this.current = this.students[index];
-    this.sRoll = this.current['roll'];
-    // console.log(this.current['roll']);
-    // console.log(this.current['name']);
-  }
-
   delete(e) {
     this.studentsService.deleteStudent(e);
     console.log(this.studentsService.getStudents());
     this.parentFun.emit();
   }
-
-  // update() {
-  //   this.studentsService.updateStudent(
-  //     this.sRoll,
-  //     this.sName.value,
-  //     this.sCity.value,
-  //     this.sCollege.value,
-  //     this.sQualification.value
-  //   );
-  //   this.form.reset();
-  //   this.parentFun.emit();
-  //   console.log(this.studentsService.getStudents());
-  // }
-
-  // submit(form) {
-  //   console.log('Successfully Submitted: ', form);
-  //   this.update();
-  // }
 }
