@@ -11,7 +11,7 @@ export class StudentsService {
   constructor(private http: HttpClient) {
     this.getJSON().subscribe((data) => {
       this.students = data;
-      this.setStudents(this.students);
+      this.setStudents(data);
     });
   }
 

@@ -1,84 +1,107 @@
 <div>
-  <p class="h3 mb-4 text-white">Students' List</p>
-  <table class="table table-striped table-light">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col">Roll</th>
-        <th scope="col">Name</th>
-        <th scope="col">City</th>
-        <th scope="col">College</th>
-        <th scope="col">Qualification</th>
-        <th scope="col">Completion Status</th>
-        <th scope="col">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let student of students; let i = index">
-        <th scope="row">{{ student.roll }}</th>
-        <td>
-          <span *ngIf="!editMode[i]">{{ student.name }}</span>
-          <span *ngIf="editMode[i]"
-            ><input
-              type="text"
-              [(ngModel)]="student.name"
-              class="form-control"
-              required
-            />
-          </span>
-        </td>
-        <td>
-          <span *ngIf="!editMode[i]">{{ student.city }}</span>
-          <span *ngIf="editMode[i]"
-            ><input
-              type="text"
-              [(ngModel)]="student.city"
-              class="form-control"
-              required
-          /></span>
-        </td>
-        <td>
-          <span *ngIf="!editMode[i]">{{ student.college }}</span>
-          <span *ngIf="editMode[i]"
-            ><input
-              type="text"
-              [(ngModel)]="student.college"
-              class="form-control"
-              required
-          /></span>
-        </td>
-        <td>
-          <span *ngIf="!editMode[i]">{{ student.qualification }}</span>
-          <span *ngIf="editMode[i]"
-            ><input
-              type="text"
-              [(ngModel)]="student.qualification"
-              class="form-control"
-              required
-          /></span>
-        </td>
-        <td class="text-center">
-          <input type="checkbox" [(ngModel)]="student.isCompleted" />
-        </td>
-        <td>
-          <i
-            *ngIf="!editMode[i]"
-            class="fas fa-pen text-warning mr-4"
-            (click)="editRow(i)"
-            style="cursor: pointer"
-          ></i>
-          <i
-            *ngIf="editMode[i]"
-            class="fas fa-save text-info mr-4"
-            (click)="saveRow(student, i)"
-            style="cursor: pointer"
-          ></i>
-          <i
-            class="fas fa-trash text-danger"
-            (click)="delete(i)"
-            style="cursor: pointer"
-          ></i>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="mb-4">
+    <span class="h3 text-white">Students' List</span>
+    <span>
+      <button
+        class="btn btn-success"
+        style="float: right"
+        data-toggle="modal"
+        data-target="#exampleModal1"
+      >
+        <i class="fas fa-plus"></i>&nbsp;Add Student
+      </button></span
+    >
+    <span>
+      <button
+        class="btn btn-danger mr-4"
+        style="float: right"
+        (click)="deleteSelected()"
+      >
+        Delete Selected
+      </button></span
+    >
+  </div>
+  <div>
+    <table class="table table-striped table-light">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Roll</th>
+          <th scope="col">Name</th>
+          <th scope="col">City</th>
+          <th scope="col">College</th>
+          <th scope="col">Qualification</th>
+          <th scope="col">Completion Status</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students; let i = index">
+          <th scope="row">{{ student.roll }}</th>
+          <td>
+            <span *ngIf="!editMode[i]">{{ student.name }}</span>
+            <span *ngIf="editMode[i]"
+              ><input
+                type="text"
+                [(ngModel)]="student.name"
+                class="form-control"
+                required
+              />
+            </span>
+          </td>
+          <td>
+            <span *ngIf="!editMode[i]">{{ student.city }}</span>
+            <span *ngIf="editMode[i]"
+              ><input
+                type="text"
+                [(ngModel)]="student.city"
+                class="form-control"
+                required
+            /></span>
+          </td>
+          <td>
+            <span *ngIf="!editMode[i]">{{ student.college }}</span>
+            <span *ngIf="editMode[i]"
+              ><input
+                type="text"
+                [(ngModel)]="student.college"
+                class="form-control"
+                required
+            /></span>
+          </td>
+          <td>
+            <span *ngIf="!editMode[i]">{{ student.qualification }}</span>
+            <span *ngIf="editMode[i]"
+              ><input
+                type="text"
+                [(ngModel)]="student.qualification"
+                class="form-control"
+                required
+            /></span>
+          </td>
+          <td class="text-center">
+            <input type="checkbox" [(ngModel)]="student.isCompleted" />
+          </td>
+          <td>
+            <i
+              *ngIf="!editMode[i]"
+              class="fas fa-pen text-warning mr-4"
+              (click)="editRow(i)"
+              style="cursor: pointer"
+            ></i>
+            <i
+              *ngIf="editMode[i]"
+              class="fas fa-save text-info mr-4"
+              (click)="saveRow(student, i)"
+              style="cursor: pointer"
+            ></i>
+            <i
+              class="fas fa-trash text-danger"
+              (click)="delete(i)"
+              style="cursor: pointer"
+            ></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

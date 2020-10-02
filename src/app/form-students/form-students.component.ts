@@ -60,42 +60,30 @@ export class FormStudentsComponent implements OnInit {
     return this.form.get('qualification');
   }
 
-  createNew() {
-    this.students = this.studentsService.getStudents();
+  createStudent() {
+    this.studentArray = this.studentsService.getStudents();
 
-    if (this.students.length > 0) {
-      this.lastRoll = this.students[this.students.length - 1].roll;
+    if (this.studentArray.length > 0) {
+      this.lastRoll = this.studentArray[this.studentArray.length - 1].roll;
     } else {
       this.lastRoll = 0;
     }
 
-    this.newStudent = {
+    this.studentsService.addStudent({
       roll: ++this.lastRoll,
       name: this.studentName.value,
       city: this.studentCity.value,
       college: this.studentCollege.value,
       qualification: this.qualification.value,
       isCompleted: false,
-    };
-
-    this.studentsService.addStudent(this.newStudent);
+    });
     this.parentFun.emit();
-
     this.form.reset();
+    // console.log(this.studentsService.getStudents());
   }
 
   submit(form) {
     console.log('Successfully Submitted: ', form);
-    this.createNew();
-  }
-
-  deleteSelected() {
-    this.studentArray = this.students;
-    this.studentArray = this.studentArray.filter(
-      (item) => item.isCompleted === false
-    );
-    console.log(this.studentArray);
-    this.studentsService.setStudents(this.studentArray);
-    this.parentFun.emit();
+    this.createStudent();
   }
 }

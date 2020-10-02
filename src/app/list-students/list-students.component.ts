@@ -47,13 +47,23 @@ export class ListStudentsComponent implements OnInit {
         student.qualification
       );
       this.parentFun.emit();
-      console.log(this.studentsService.getStudents());
+      // console.log(this.studentsService.getStudents());
     }
   }
 
   delete(e) {
     this.studentsService.deleteStudent(e);
-    console.log(this.studentsService.getStudents());
     this.parentFun.emit();
+    // console.log(this.studentsService.getStudents());
+  }
+
+  deleteSelected() {
+    this.studentArray = this.students;
+    this.studentArray = this.studentArray.filter(
+      (item) => item.isCompleted === false
+    );
+    this.studentsService.setStudents(this.studentArray);
+    this.parentFun.emit();
+    // console.log(this.studentsService.getStudents());
   }
 }
