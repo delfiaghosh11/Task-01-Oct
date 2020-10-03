@@ -122,6 +122,7 @@ export class ListStudentsComponent implements OnInit {
       // this.studentsService.setStudents(this.studentArray);
       this.parentFun.emit();
     }
+    this.searchName = '';
     // console.log(this.studentsService.getStudents());
   }
 }
