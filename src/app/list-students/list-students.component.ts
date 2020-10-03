@@ -20,6 +20,8 @@ export class ListStudentsComponent implements OnInit {
     'https://cdn.icon-icons.com/icons2/1879/PNG/512/iconfinder-3-avatar-2754579_120516.png';
   gender;
   isCompleted: boolean;
+  searchName = '';
+  isFound = true;
 
   constructor(private studentsService: StudentsService) {}
 
@@ -95,5 +97,31 @@ export class ListStudentsComponent implements OnInit {
     } else {
       this.gender = 'male';
     }
+  }
+
+  search() {
+    this.students = this.studentsService.getStudents();
+    this.studentArray = this.students;
+
+    const found = this.studentArray.find(
+      (item) => item.name === this.searchName
+    );
+
+    if (this.searchName === '') {
+      this.studentsService.setStudents(this.studentArray);
+      this.isFound = true;
+      this.parentFun.emit();
+    } else if (this.searchName !== '' && found === undefined) {
+      this.isFound = false;
+    } else {
+      this.studentArray = this.studentArray.filter(
+        (item) => item.name === this.searchName
+      );
+      this.isFound = true;
+      this.students = this.studentArray;
+      // this.studentsService.setStudents(this.studentArray);
+      this.parentFun.emit();
+    }
+    // console.log(this.studentsService.getStudents());
   }
 }
