@@ -29,14 +29,23 @@ export class StudentsService {
     this.students = sArray;
   }
 
-  updateStudent = (roll, name, city, college, qualification) => {
+  updateStudent = (
+    roll,
+    name,
+    city,
+    college,
+    qualification,
+    gender,
+    isCompleted
+  ) => {
     this.getStudents().map((item) =>
       item.roll === roll
         ? ((item.name = name),
           (item.city = city),
           (item.college = college),
           (item.qualification = qualification),
-          (item.isCompleted = false))
+          (item.gender = gender),
+          (item.isCompleted = isCompleted))
         : item
     );
   };

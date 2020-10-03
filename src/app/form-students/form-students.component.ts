@@ -42,6 +42,7 @@ export class FormStudentsComponent implements OnInit {
       Validators.maxLength(30),
       Validators.pattern("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"),
     ]),
+    gender: new FormControl('', Validators.required),
   });
 
   get studentName() {
@@ -60,6 +61,18 @@ export class FormStudentsComponent implements OnInit {
     return this.form.get('qualification');
   }
 
+  get gender() {
+    return this.form.get('gender');
+  }
+
+  // get female() {
+  //   return this.form.get('female');
+  // }
+
+  // get male() {
+  //   return this.form.get('male');
+  // }
+
   createStudent() {
     this.studentArray = this.studentsService.getStudents();
 
@@ -75,11 +88,22 @@ export class FormStudentsComponent implements OnInit {
       city: this.studentCity.value,
       college: this.studentCollege.value,
       qualification: this.qualification.value,
+      gender: this.gender.value,
       isCompleted: false,
     });
     this.parentFun.emit();
     this.form.reset();
     // console.log(this.studentsService.getStudents());
+  }
+
+  setGender(e) {
+    if (e.target.value === 'female') {
+      this.gender.reset();
+      this.gender.setValue('female');
+    } else {
+      this.gender.reset();
+      this.gender.setValue('male');
+    }
   }
 
   submit(form) {

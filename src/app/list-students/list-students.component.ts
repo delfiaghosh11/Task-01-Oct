@@ -14,6 +14,12 @@ export class ListStudentsComponent implements OnInit {
   sRoll: number;
   editMode = [];
   studentArray = [];
+  femaleImgUrl =
+    'https://www.iconfinder.com/data/icons/business-avatar-1/512/9_avatar-512.png';
+  maleImgUrl =
+    'https://cdn.icon-icons.com/icons2/1879/PNG/512/iconfinder-3-avatar-2754579_120516.png';
+  gender;
+  isCompleted: boolean;
 
   constructor(private studentsService: StudentsService) {}
 
@@ -25,8 +31,10 @@ export class ListStudentsComponent implements OnInit {
     });
   }
 
-  editRow(index) {
+  editRow(student, index) {
     this.editMode[index] = true;
+    this.gender = student.gender;
+    this.isCompleted = student.isCompleted;
   }
 
   saveRow(student, index) {
@@ -34,7 +42,8 @@ export class ListStudentsComponent implements OnInit {
       student.name === '' ||
       student.city === '' ||
       student.college === '' ||
-      student.qualification === ''
+      student.qualification === '' ||
+      this.gender === ''
     ) {
       this.editMode[index] = true;
     } else {
@@ -44,7 +53,9 @@ export class ListStudentsComponent implements OnInit {
         student.name,
         student.city,
         student.college,
-        student.qualification
+        student.qualification,
+        this.gender,
+        this.isCompleted
       );
       this.parentFun.emit();
       // console.log(this.studentsService.getStudents());
@@ -65,5 +76,13 @@ export class ListStudentsComponent implements OnInit {
     this.studentsService.setStudents(this.studentArray);
     this.parentFun.emit();
     // console.log(this.studentsService.getStudents());
+  }
+
+  setGender(e) {
+    if (e.target.value === 'female') {
+      this.gender = 'female';
+    } else {
+      this.gender = 'male';
+    }
   }
 }
