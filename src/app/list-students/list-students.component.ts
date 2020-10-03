@@ -47,7 +47,7 @@ export class ListStudentsComponent implements OnInit {
         student.qualification
       );
       this.parentFun.emit();
-      // console.log(this.studentsService.getStudents());
+      console.log(this.studentsService.getStudents());
     }
   }
 
