@@ -78,6 +78,17 @@ export class ListStudentsComponent implements OnInit {
     // console.log(this.studentsService.getStudents());
   }
 
+  deleteAll() {
+    this.studentArray = this.students;
+    this.studentArray.map((item) => (item.isCompleted = true));
+    this.studentArray = this.studentArray.filter(
+      (item) => item.isCompleted === false
+    );
+    this.studentsService.setStudents(this.studentArray);
+    this.parentFun.emit();
+    // console.log(this.studentsService.getStudents());
+  }
+
   setGender(e) {
     if (e.target.value === 'female') {
       this.gender = 'female';
