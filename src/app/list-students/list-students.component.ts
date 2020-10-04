@@ -103,9 +103,7 @@ export class ListStudentsComponent implements OnInit {
     this.students = this.studentsService.getStudents();
     this.studentArray = this.students;
 
-    const found = this.studentArray.find(
-      (item) => item.name === this.searchName
-    );
+    let found = this.studentArray.find((item) => item.name === this.searchName);
 
     if (this.searchName === '') {
       this.studentsService.setStudents(this.studentArray);
@@ -124,5 +122,12 @@ export class ListStudentsComponent implements OnInit {
     }
     this.searchName = '';
     // console.log(this.studentsService.getStudents());
+  }
+
+  back() {
+    this.studentArray = this.studentsService.getStudents();
+    this.studentsService.setStudents(this.studentArray);
+    this.isFound = true;
+    this.parentFun.emit();
   }
 }
