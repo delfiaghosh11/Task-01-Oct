@@ -22,6 +22,7 @@ export class ListStudentsComponent implements OnInit {
   isCompleted: boolean;
   searchName = '';
   isFound = true;
+  searchIsOn = false;
 
   constructor(private studentsService: StudentsService) {}
 
@@ -100,6 +101,8 @@ export class ListStudentsComponent implements OnInit {
   }
 
   search() {
+    this.searchIsOn = true;
+
     this.students = this.studentsService.getStudents();
     this.studentArray = this.students;
 
@@ -125,9 +128,11 @@ export class ListStudentsComponent implements OnInit {
   }
 
   back() {
-    this.studentArray = this.studentsService.getStudents();
+    this.students = this.studentsService.getStudents();
+    this.studentArray = this.students;
     this.studentsService.setStudents(this.studentArray);
     this.isFound = true;
+    this.searchIsOn = false;
     this.parentFun.emit();
   }
 }
